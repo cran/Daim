@@ -1,0 +1,28 @@
+useDynLib(Daim)
+
+export(Daim, plot.Daim, Daim.control,
+	performDaim, auc, summary.Daim,
+	roc.area, roc)
+
+S3method(roc, numeric)
+S3method(roc, integer)
+S3method(roc, matrix)
+S3method(roc, data.frame)
+S3method(roc.area, Daim)
+S3method(roc.area, Daim.list)
+S3method(roc.area, Daim.vector)
+S3method(plot, Daim)
+S3method(print, Daim)
+S3method(print, Daim.vector)
+S3method(performDaim, matrix)
+S3method(performDaim, data.frame)
+S3method(auc, Daim)
+S3method(auc, numeric)
+S3method(summary, Daim)
+S3method(summary, Daim.vector)
+S3method(summary, Daim.list)
+S3method(print, summary.Daim)
+S3method(print, summary.Daim.vector)
+S3method(print, summary.Daim.list)
+S3method(plot, Daim.vector)
+S3method(plot, Daim.list)
