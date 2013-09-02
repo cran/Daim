@@ -6,15 +6,16 @@
 }
 \usage{
 \method{plot}{Daim}(x, method=NULL, all.roc=FALSE, color="red",
-		alpha=0.25, type="b", xlab="False positive rate", 
-		ylab="True positive rate", main=NULL, add=FALSE, \dots)
+     alpha=0.25, type="s", xlab="False positive rate", 
+     ylab="True positive rate", main=NULL, add=FALSE, 
+     legend = FALSE, \dots)
 }
 \arguments{
   \item{x}{an object of class \code{Daim}.}
-  \item{method}{kind of the estimation of the ROC curve: '.632+', '.632', 'loob', 'cv', 'sample'}
+  \item{method}{kind of the estimation of the ROC curve: '0.632+', '0.632', 'loob', 'cv', 'sample'}
   \item{all.roc}{logical. Should ROC curves from all samples be plotted ?}
   \item{color}{the color used to draw the ROC curve.}
-  \item{alpha}{Semi-transparent color: see \code{\link{rgb}}.}
+  \item{alpha}{semi-transparent color: see \code{\link{rgb}}.}
   \item{type}{what type of plot should be drawn: see 
 	  argument 'type' by the function \code{\link{plot}}.}
   \item{xlab}{a title for the x axis: see \code{\link{title}}.}
@@ -22,6 +23,7 @@
   \item{main}{a main title for the plot, see also \code{\link{title}}.}
   \item{add}{logical specifying if roc-area should be added to an already
           existing plot.}
+  \item{legend}{add legend to plot.}
   \item{\dots}{graphical parameters can be given as arguments to 'plot'.}
 }
 
@@ -31,35 +33,36 @@
 \examples{
   library(Daim)
   data(Daim.data1)
-  perform <- performDaim(Daim.data1$prob.oob, Daim.data1$labels,
-	Daim.data1$prob.app)
+  perform <- performDaim(Daim.data1$prob.oob, Daim.data1$labels, Daim.data1$prob.app)
   summary(perform)
 
   par(mfrow=c(2,2))
-  plot(perform,method=".632+")
-  plot(perform,method="sample")
-  plot(perform,method=".632+",main="Comparison between methods")
-  plot(perform,method=".632",col="blue",add=TRUE)
-  plot(perform,method="loob",col="green",add=TRUE)
-  legend("bottomright",c(".632+",".632","loob"),
-	col=c("red","blue","green"),lty=1,inset=0.01)
-  plot(perform,all.roc=TRUE)
+  plot(perform, method="0.632+", legend=TRUE)
+  plot(perform, method="sample")
+  plot(perform, method="0.632+", main="Comparison between methods")
+  plot(perform, method="0.632", col="blue", add=TRUE)
+  plot(perform, method="loob", col="green", add=TRUE)
+  legend("bottomright", c("0.632+","0.632","loob"),
+         col=c("red","blue","green"), lty=1, inset=0.01)
+  plot(perform, all.roc=TRUE)
 
 
   ####
   #### If your device don't support the semi-transparent colors use 
   #### the PDF Graphics Device.
-  #### 
-
-  pdf("plot-Daim.pdf",version=1.4)
-  plot(perform,method=".632+")
-  plot(perform,method="sample")
-  plot(perform,method=".632+",main="Comparison between methods")
-  plot(perform,method=".632",col="blue",add=TRUE)
-  plot(perform,method="loob",col="green",add=TRUE)
-  legend("bottomright",c(".632+",".632","loob"),
-	col=c("red","blue","green"),lty=1,inset=0.01)
-  plot(perform,all.roc=TRUE)
-  dev.off()  
+  ####
+   
+  \dontrun{
+  pdf("plot-Daim.pdf")
+  plot(perform, method="0.632+")
+  plot(perform, method="sample")
+  plot(perform, method="0.632+", main="Comparison between methods")
+  plot(perform, method="0.632", col="blue", add=TRUE)
+  plot(perform, method="loob", col="green", add=TRUE)
+  legend("bottomright", c("0.632+","0.632","loob"),
+         col=c("red","blue","green"), lty=1, inset=0.01)
+  plot(perform, all.roc=TRUE)
+  dev.off()
+  }  
 }
 \keyword{hplot} \keyword{classif}

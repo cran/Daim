@@ -7,11 +7,13 @@
 }
 \usage{
 \method{plot}{Daim.vector}(x, color="blue", type="l", bty="n", 
-		xlab="False positive rate", ylab="True positive rate", 
-		main="ROC curve", \dots)
-\method{plot}{Daim.list}(x, color=rgb(1,0,0,alpha=0.5), 
-		xlab="False positive rate", ylab="True positive rate", 
-		main="ROC curves", legend=TRUE, \dots)
+     xlab="False positive rate", ylab="True positive rate", 
+     main="ROC curve", \dots)
+
+\method{plot}{Daim.list}(x, color=rgb(1,0,0,alpha=0.5),
+     lty=1, lwd=1, pch=19, 
+     xlab="False positive rate", ylab="True positive rate", 
+     main="ROC curves", legend=TRUE, \dots)
 }
 \arguments{
   \item{x}{an object of class \code{roc.Daim}.}
@@ -19,10 +21,13 @@
   \item{type}{what type of plot should be drawn: see 
 	  argument 'type' by the function \code{\link{plot}}.}
   \item{bty}{the type of box to be drawn around the legend: see \code{\link{legend}}.}
+  \item{lty}{line type code: see \code{\link{par}}.}
+  \item{lwd}{line width: see \code{\link{par}}.}
+  \item{pch}{plotting 'character': see \code{\link{points}}.}
   \item{xlab}{a title for the x axis: see \code{\link{title}}.}
   \item{ylab}{a title for the y axis: see \code{\link{title}}.}
   \item{main}{a main title for the plot, see also \code{\link{title}}.}
-  \item{legend}{Should a legend be added?}
+  \item{legend}{should a legend be added?}
   \item{\dots}{graphical parameters can be given as arguments to 'plot'.}
 }
 
@@ -37,7 +42,9 @@
   plot(M)
 
   M <- roc(Daim.data3[,-1], Daim.data3[,1], "pos")
-  plot(M,color=1:4)
+  plot(M, color=1:4)
 
+  M <- roc(Daim.data3[,-1], Daim.data3[,1], "pos")
+  plot(M, color="black", lty=1:4)
 }
 \keyword{hplot} \keyword{classif}

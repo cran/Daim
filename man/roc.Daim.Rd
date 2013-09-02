@@ -10,8 +10,11 @@
 }
 \usage{
 \method{roc}{integer}(x, ...)
+
 \method{roc}{numeric}(x, labels, labpos, thres=NULL, \dots)
+
 \method{roc}{matrix}(x, labels, labpos, thres=NULL, \dots)
+
 \method{roc}{data.frame}(x, ...)
 
 }

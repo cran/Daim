@@ -1,8 +1,10 @@
-useDynLib(Daim)
+
+importFrom(rms, matinv)
+
 
 export(Daim, plot.Daim, Daim.control,
 	performDaim, auc, summary.Daim,
-	roc.area, roc)
+	roc.area, roc, deLong.test)
 
 S3method(roc, numeric)
 S3method(roc, integer)
@@ -26,3 +28,6 @@ S3method(print, summary.Daim.vector)
 S3method(print, summary.Daim.list)
 S3method(plot, Daim.vector)
 S3method(plot, Daim.list)
+S3method(print, DeLong)
+
+useDynLib(Daim)

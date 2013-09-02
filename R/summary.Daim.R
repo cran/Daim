@@ -1,4 +1,4 @@
- 
+
 summary.Daim <- function(object,...)
 {
 	meth <- unlist(object$method)
@@ -7,27 +7,28 @@ summary.Daim <- function(object,...)
 	auc <- auc(object)
 	if(class(object)[2] != "cv"){
 		ans <- list(call=object$formula,
-				method=list(meth.names=meth.names,meth=meth,cutoff=object$cutoff),
-				error=data.frame(err.632p=object$err632p, err.632=object$err632,
-							err.loob=object$errloob, err.app=object$errapp),
-				sensetivity=data.frame(sens.632p=object$sens632p, sens.632=object$sens632,
-							sens.loob=object$sensloob, sens.app=object$sensapp),
-				specificity=data.frame(spec.632p=object$spec632p, spec.632=object$spec632,
-							spec.loob=object$specloob, spec.app=object$specapp),
-				AUC=data.frame(auc[1:4]))
+					method=list(meth.names=meth.names,meth=meth,cutoff=object$cutoff),
+					error=data.frame(err.632p=object$err632p, err.632=object$err632,
+									 err.loob=object$errloob, err.app=object$errapp),
+					sensitivity=data.frame(sens.632p=object$sens632p, sens.632=object$sens632,
+										   sens.loob=object$sensloob, sens.app=object$sensapp),
+					specificity=data.frame(spec.632p=object$spec632p, spec.632=object$spec632,
+										   spec.loob=object$specloob, spec.app=object$specapp),
+					AUC=data.frame(auc[1:4]))
 	}
 	else{
-		ans <- list(call=object$formula,
-				method=list(meth.names=meth.names,meth=meth,cutoff=object$cutoff),
-				error=data.frame(err.loob=object$errloob, err.app=object$errapp),
-				sensetivity=data.frame(sens.loob=object$sensloob, sens.app=object$sensapp),
-				specificity=data.frame(spec.loob=object$specloob, spec.app=object$specapp),
-				AUC=data.frame(auc[1:2]))
+		ans <- list(call = object$formula,
+					method = list(meth.names=meth.names, meth=meth, cutoff=object$cutoff),
+					error = data.frame(err.loob=object$errloob, err.app=object$errapp),
+					sensitivity = data.frame(sens.loob=object$sensloob, sens.app=object$sensapp),
+					specificity = data.frame(spec.loob=object$specloob, spec.app=object$specapp),
+					AUC = data.frame(auc[1:2]))
 	}
 	class(ans) <- c("summary.Daim",class(object)[2])
 	ans
 }
-	
+
+
 
 print.summary.Daim <- function(x, digits=max(3, getOption("digits") - 3), ...)
 {
@@ -40,7 +41,7 @@ print.summary.Daim <- function(x, digits=max(3, getOption("digits") - 3), ...)
 	cat(method,labels=" ",fill=TRUE)
 	cat("\nResult: \n")
 	error <- format(round(x$error,digits=digits),nsmall=digits)
-	sens <- format(round(x$sensetivity,digits=digits),nsmall=digits)
+	sens <- format(round(x$sensitivity,digits=digits),nsmall=digits)
 	spec <- format(round(x$specificity,digits=digits),nsmall=digits)
 	AUC <- format(round(x$AUC,digits=digits),nsmall=digits)
 	if(class(x)[2] != "cv"){
@@ -72,7 +73,9 @@ print.summary.Daim <- function(x, digits=max(3, getOption("digits") - 3), ...)
 		invisible(x)
 	}
 }
-	
+
+
+
 
 summary.Daim.vector <- function(object, ...){
 	best.id <- which.max((1-object$FPR)+object$TPR-1)
@@ -89,6 +92,7 @@ summary.Daim.vector <- function(object, ...){
 
 
 
+
 summary.Daim.list <- function(object, ...){
 	ans <- lapply(object, summary.Daim.vector)
 	class(ans) <- "summary.Daim.list"
@@ -101,7 +105,7 @@ print.summary.Daim.list <- function(x, digits=max(3, getOption("digits") - 3), .
 {
 	names.erg <- names(x)
 	if(is.null(names.erg))
-		names.erg <- paste("Col.",1:length(x),sep="")
+	names.erg <- paste("Col.",1:length(x),sep="")
 	erg <- matrix(unlist(lapply(x,Daim.print.list)),nrow=5)
 	dimnames(erg) <- list(rep("",5),names.erg)
 	class(erg) <- "table"
@@ -124,8 +128,8 @@ print.summary.Daim.vector <- function(x, digits=max(3, getOption("digits") - 3),
 Daim.print.list <- function(x, digits=max(3, getOption("digits") - 3), ...)
 {
 	su.names <- c("Number of cut-points:","Best cut-point      :",
-				"Sensitivity         :", "Specificity         :",
-				"AUC                 :")
+				  "Sensitivity         :", "Specificity         :",
+				  "AUC                 :")
 	erg <- paste(su.names,format(round(unlist(x[2:6]),digits=digits),nsmall=digits),"  ")
 	class(erg) <- "table"
 	erg

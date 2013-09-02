@@ -1,7 +1,16 @@
+/*
+ *  sens_spec.c
+ *  Daim
+ *
+ *  Created by Sergej Potapov on 07.06.10.
+ *
+ */
+
 #include <Rinternals.h>
 #include <Rdefines.h>
 #include <R.h>
 #include <Rmath.h>
+
 
 
 SEXP one_roc(SEXP prob_oob, SEXP label, SEXP thres, SEXP labn)
@@ -49,6 +58,11 @@ SEXP one_roc(SEXP prob_oob, SEXP label, SEXP thres, SEXP labn)
 	return(result);
 }
 
+
+
+
+
+
 SEXP roc_value( SEXP prob, SEXP labels, SEXP thres, SEXP labn)
 {
 	int i;
@@ -62,6 +76,10 @@ SEXP roc_value( SEXP prob, SEXP labels, SEXP thres, SEXP labn)
 	return(result);
 }
 
+
+
+
+
 double error_loob( SEXP loob_i, SEXP classt, double rsp_i)
 {
 	int i;
@@ -74,6 +92,9 @@ double error_loob( SEXP loob_i, SEXP classt, double rsp_i)
 }
 
 
+
+
+
 double error_loob2( SEXP loob_i, double classt, double rsp_i)
 {
 	int i;
@@ -84,6 +105,9 @@ double error_loob2( SEXP loob_i, double classt, double rsp_i)
 	ans = ans / i;
 	return(ans);
 }
+
+
+
 
 
 SEXP sens_spez_obs (SEXP loob, SEXP app, SEXP thres, SEXP lab_neg, SEXP classt, SEXP rsp)
@@ -110,7 +134,7 @@ SEXP sens_spez_obs (SEXP loob, SEXP app, SEXP thres, SEXP lab_neg, SEXP classt, 
 		templab[i] = (RSP[i] - 1.0) == neg_lab;
 		sum_tlab += templab[i];
 		temp_loob = VECTOR_ELT(loob,i);
-		err_loob += error_loob(temp_loob,classt,(RSP[i]-1.0));
+		err_loob += error_loob(temp_loob, classt, (RSP[i]-1.0));
 		for(j=0; j < N_thres; j++){
 			sensspezloob[i][j] = 0.0;
 			sum_loob = 0.0;
@@ -206,6 +230,9 @@ SEXP sens_spez_obs (SEXP loob, SEXP app, SEXP thres, SEXP lab_neg, SEXP classt, 
 	Free(my_q); Free(templab);
 	return(result);
 }
+
+
+
 
 SEXP sens_spez_none (SEXP loob, SEXP app, SEXP thres, SEXP lab_neg, SEXP classt, SEXP rsp)
 {

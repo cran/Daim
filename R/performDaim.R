@@ -107,6 +107,12 @@ performDaim.data.frame <- function(x, labels, prediction=NULL,
 }
 
 
+
+
+
+
+
+
 Daim.performance <- function(testind, lab.oob, prob.oob, labels, prob.app,
 				est.method, thres, cutoff, labneg, method)
 {
@@ -165,11 +171,9 @@ Daim.performance <- function(testind, lab.oob, prob.oob, labels, prob.app,
 	myp <- ans$myp
 
 	if(!is.character(cutoff)){
-		id.out <- which(abs(thres-cutoff)<.Machine$double.eps)
-		method$best.cutoff <- NULL
+		id.cut <- which(abs(thres - cutoff) < .Machine$double.eps)
 		errapp <- ans$errapp
 		errloob <- ans$errloob
-		myq <- myq[id.out]
 	}
 	else{
 		errapp <- ans$errapp2
@@ -202,8 +206,13 @@ Daim.performance <- function(testind, lab.oob, prob.oob, labels, prob.app,
   	sens632p <- 1 - ffr632p
   	spez632p <- 1 - fpr632p
 	
-  	errloob1 <- pmin(errloob,myq)
-  	gamm <- myp*(1-myq) + (1-myp)*myq
+	gamm <- myp*(1-myq) + (1-myp)*myq
+	if(!is.character(cutoff)){
+		errloob1 <- pmin(errloob, gamm[id.cut])
+	}else{
+		errloob1 <- pmin(errloob, gamm)
+	}
+	
   	
 	Rerr <- rep(0,length(errapp))
 	for(i in 1:length(Rerr)){
@@ -211,29 +220,33 @@ Daim.performance <- function(testind, lab.oob, prob.oob, labels, prob.app,
 			Rerr[i] <- (errloob[i]-errapp[i])/(gamm[i]-errapp[i])
 	}
 	
-  	err632p <- err632+(errloob1-errapp)*(0.368*0.632*Rerr)/(1-0.368*Rerr)
+  	err632p <- err632 + (errloob1 - errapp) * (0.368*0.632*Rerr)/(1 - 0.368*Rerr)
 
-	if(cutoff == ".632"){
-		id.out <- which.max(sens632+spez632-1)
-		method$best.cutoff <- thres[id.out]
+	if(cutoff == "loob"){
+		id.cut <- which.max(sensloob+spezloob-1)
+		control$best.cutoff <- thres[id.cut]
+	}	
+	if(cutoff == "0.632"){
+		id.cut <- which.max(sens632+spez632-1)
+		method$best.cutoff <- thres[id.cut]
 	}
-	if(cutoff == ".632+"){
-		id.out <- which.max(sens632p+spez632p-1)
-		mehod$best.cutoff <- thres[id.out]
+	if(cutoff == "0.632+"){
+		id.cut <- which.max(sens632p+spez632p-1)
+		mehod$best.cutoff <- thres[id.cut]
 	}
 	if(is.character(cutoff)){
-		err632p <- err632p[id.out]
-		err632 <- err632[id.out]
-		errloob <- errloob[id.out]
-		errapp <- errapp[id.out]
+		err632p <- err632p[id.cut]
+		err632 <- err632[id.cut]
+		errloob <- errloob[id.cut]
+		errapp <- errapp[id.cut]
 	}
 
   	output <- list(method=method, err632p=err632p,err632=err632,
 					errloob=errloob,errapp=errapp,
-					sens632p=sens632p[id.out], spec632p=spez632p[id.out],
-					sens632=sens632[id.out], spec632=spez632[id.out],
-					sensloob=sensloob[id.out], specloob=spezloob[id.out],
-					sensapp=sensapp[id.out], specapp=spezapp[id.out],
+					sens632p=sens632p[id.cut], spec632p=spez632p[id.cut],
+					sens632=sens632[id.cut], spec632=spez632[id.cut],
+					sensloob=sensloob[id.cut], specloob=spezloob[id.cut],
+					sensapp=sensapp[id.cut], specapp=spezapp[id.cut],
   					roc=data.frame(sens632p=sens632p,spec632p=spez632p,
 								sens632=sens632,spec632=spez632,
 								sensloob=sensloob,specloob=spezloob,

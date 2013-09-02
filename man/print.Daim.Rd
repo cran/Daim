@@ -24,7 +24,7 @@ An object of class \code{Daim} is printed.
   library(Daim)
   data(Daim.data1)
   perform <- performDaim(Daim.data1$prob.oob, 
-		Daim.data1$labels, Daim.data1$prob.app)
+                         Daim.data1$labels, Daim.data1$prob.app)
   perform
 }                                                      
 \keyword{print} \keyword{manip}

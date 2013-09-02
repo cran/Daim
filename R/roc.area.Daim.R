@@ -9,8 +9,8 @@ roc.area.Daim <- function(x, method=NULL, col="red", area.color=rgb(1,0,0,alpha=
 {
 	if(class(x)[2] != "cv"){
 		if(is.null(method))
-			method <- ".632+"
-		meth <- charmatch(method,c(".632+",".632","loob","sample"))
+			method <- "0.632+"
+		meth <- charmatch(method,c("0.632+","0.632","loob","sample"))
 		all.roc <- FALSE
 		if(meth == 4)
 			all.roc <- TRUE
@@ -80,7 +80,7 @@ roc.area.Daim <- function(x, method=NULL, col="red", area.color=rgb(1,0,0,alpha=
 
 
 roc.area.Daim.list <- function(x, col="black", area.color=rgb(1,0,0,alpha=0.5),
-		xlab="False positive rate", ylab="True positive rate",main="ROC curves",
+		xlab="False positive rate", ylab="True positive rate", main="ROC curves",
 		density=NULL, angle=4, border=NULL, add=FALSE, ...)
 {
 	if(!add){
@@ -104,7 +104,7 @@ roc.area.Daim.list <- function(x, col="black", area.color=rgb(1,0,0,alpha=0.5),
 
 
 roc.area.Daim.vector <- function(x, col="red", area.color=rgb(1,0,0,alpha=0.5),
-		xlab="False positive rate", ylab="True positive rate",main="ROC curve",
+		xlab="False positive rate", ylab="True positive rate", main="ROC curve",
 		density=NULL, angle=4, border=NULL, add=FALSE, ...)
 {
 	if(!add){

@@ -1,3 +1,12 @@
+/*
+ *  rocDaim.c
+ *  Daim
+ *
+ *  Created by Sergej Potapov on 07.06.10.
+ *
+ */
+
+
 #include <Rinternals.h>
 #include <Rdefines.h>
 #include <R.h>

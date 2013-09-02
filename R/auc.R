@@ -1,9 +1,11 @@
 
 auc <- function(x, ...) UseMethod("auc")
 
+
 auc.default <- function(x, ...) {
   stop(paste("Do not know how to handle objects of class", class(x)))
 }
+
 
 
 auc.numeric <- function(x, y, ...)
@@ -25,7 +27,7 @@ auc.Daim <- function(x, ...)
 {
 	auc.loob <- auc(x$roc$sensloob,x$roc$specloob)
 	auc.app <- auc(x$roc$sensapp,x$roc$specapp)
-	auc.samples <- sapply(x$all.roc,function(y) auc(1-y[,1],y[,2]))
+	auc.samples <- sapply(x$sample.roc,function(y) auc(1-y[,1],y[,2]))
 	if(class(x)[2] != "cv"){
 		auc.632p <- auc(x$roc$sens632p,x$roc$spec632p)
 		auc.632 <- auc(x$roc$sens632,x$roc$spec632)

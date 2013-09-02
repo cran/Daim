@@ -3,9 +3,11 @@
 roc <- function(x, ...) UseMethod("roc")
 
 
+
 roc.integer <- function(x, ...) {
   roc.numeric(x, ...)
 }
+
 
 
 roc.numeric <- function(x,labels,labpos,thres=NULL,...){
@@ -24,6 +26,7 @@ roc.numeric <- function(x,labels,labpos,thres=NULL,...){
 	class(ans) <- "Daim.vector"
 	ans
 }
+
 
 
 roc.matrix <- function(x,labels,labpos,thres=NULL,...){
@@ -48,9 +51,11 @@ roc.matrix <- function(x,labels,labpos,thres=NULL,...){
 }
 
 
+
 roc.data.frame <- function(x, ...) {
   roc.matrix(x, ...)
 }
+
 
 
 roc.default <- function(x, ...) {

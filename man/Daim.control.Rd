@@ -6,26 +6,28 @@
 }
 \usage{
 Daim.control(method="boot", number = 100, replace = TRUE, 
-		boot.size = 1, k = 10, k.runs = 10,
-		dependency = list(var = NULL, keep.id = FALSE))
+             boot.size = 1, k = 10, k.runs = 1,
+             dependency = list(var = NULL, keep.id = FALSE))
 }
 \arguments{
-  \item{method}{The resampling method: \code{boot}, \code{cv}}
-  \item{number}{the number of bootstrap samples.}
+  \item{method}{the resampling method:\cr 
+  \code{boot} - bootstrapping, \code{cv} - k-fold cross-validation.}
+  \item{number}{the number of bootstrap samples}
   \item{replace}{a logical indicating whether sampling of observations is 
-                 done with or without replacement.}
-  \item{boot.size}{percentage of observations (\code{0 < boot.size < 1}) to draw without replacement (only relevant if \code{replace = FALSE}). In this case subagging (Buehlmann and Yu, 2002) without replacement is performed.}
+                 done with or without replacement}
+  \item{boot.size}{percentage of observations (\code{0 < boot.size < 1}) to draw without replacement (only relevant if \code{replace = FALSE}). In this case subsampling is performed.}
   \item{k}{the number of folds}
   \item{k.runs}{the number of runs of k-fold cross-validations}
-  \item{dependency}{...}
+  \item{dependency}{to handle paired data structures}
 }
 \references{ 
 
-Leo Breiman (1996b), Out-Of-Bag Estimation. \emph{Technical Report}.\cr
+Breiman L. (1996), Out-Of-Bag Estimation. \emph{Technical Report}.\cr
 \url{ftp://ftp.stat.berkeley.edu/pub/users/breiman/OOBestimation.ps.Z}.\cr
 
-Peter Buehlmann and Bin Yu (2002), Analyzing Bagging.\cr
-\emph{The Annals of Statistics} \bold{30}(4), 927--961.\cr
+Adler W, Brenning A, Potapov S, Schmid M, Lausen B. (2011),\cr 
+Ensemble classification of paired data. \emph{Computational Statistics and Data Analysis}.\cr
+55(5):1933-1941.
 
 }
 
@@ -38,7 +40,7 @@ Peter Buehlmann and Bin Yu (2002), Analyzing Bagging.\cr
   ### for bootstrap
   ###
 
-  Daim.control(method="boot",number=100)
+  Daim.control(method="boot", number=100)
 
   ###
   ### for cross-validation
@@ -50,8 +52,7 @@ Peter Buehlmann and Bin Yu (2002), Analyzing Bagging.\cr
   ### for subagging or subsampling
   ###
 
-  Daim.control(method="boot", number=100, replace=FALSE, 
-	boot.size=0.9)
+  Daim.control(method="boot", number=100, replace=FALSE, boot.size=0.9)
 
 }
 

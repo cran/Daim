@@ -8,7 +8,9 @@
 }
 \usage{
 \method{summary}{Daim}(object, \dots)
+
 \method{summary}{Daim.vector}(object, \dots)
+
 \method{summary}{Daim.list}(object, \dots)
 }
 \arguments{
@@ -22,7 +24,7 @@
   library(Daim)
   data(Daim.data1)
   perform <- performDaim(Daim.data1$prob.oob, 
-		Daim.data1$labels, Daim.data1$prob.app)
+                         Daim.data1$labels, Daim.data1$prob.app)
   perform
   summary(perform)
 

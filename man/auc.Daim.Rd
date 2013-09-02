@@ -3,18 +3,18 @@
 \alias{auc.Daim}
 \title{The area under the ROC curve (AUC)}
 \description{
-  This function computs the area under an ROC curve.
+  This function computes the area under an ROC curve for \code{\link{Daim-class}} objects.
 }
 \usage{
 \method{auc}{Daim}(x, \dots)
 }
 \arguments{
-  \item{x}{an object of class \code{Daim}.}
+  \item{x}{an object of class \code{\link{Daim-class}}.}
   \item{\dots}{additional parameters.}
 }
 \value{ a list with following components :
-\item{auc.632p}{the .632+ estimation of the AUC.}
-\item{auc.632}{the .632 estimation of the AUC.}
+\item{auc.632p}{the 0.632+ estimation of the AUC.}
+\item{auc.632}{the 0.632 estimation of the AUC.}
 \item{auc.loob}{the LOOB estimation of the AUC.}
 \item{auc.app}{the apparent estimation of the AUC.}
 \item{auc.samples}{the AUC values for each bootstap sample.}
@@ -26,7 +26,7 @@
 
   data(Daim.data1)
   perform <- performDaim(Daim.data1$prob.oob, Daim.data1$labels,
-		Daim.data1$prob.app)
+                         Daim.data1$prob.app)
 
   auc(perform)
   roc.area(perform)
